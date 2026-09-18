@@ -3,7 +3,7 @@ FROM composer:2 AS vendor
 
 WORKDIR /app
 
-COPY backend/composer.json backend/composer.lock ./
+COPY composer.json composer.lock ./
 
 RUN composer install \
     --no-dev \
@@ -12,7 +12,7 @@ RUN composer install \
     --optimize-autoloader \
     --no-scripts
 
-COPY backend/ /app/
+COPY . /app/
 
 RUN composer dump-autoload --optimize
 
