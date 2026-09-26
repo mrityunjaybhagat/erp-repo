@@ -59,7 +59,7 @@ Route::apiResource('expenses', ExpenseController::class);
 Route::apiResource('cash-vouchers', CashVoucherController::class);
 Route::apiResource('user-types', UserTypeController::class);
 Route::apiResource('users', UserController::class);
-Route::apiResource('categories', CategoryController::class);
+//Route::apiResource('categories', CategoryController::class);
 // Route::apiResource('posts', PostController::class);
 // Route::apiResource('magazines', MagazineController::class);
 
