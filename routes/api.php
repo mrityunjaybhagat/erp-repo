@@ -37,7 +37,7 @@ use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\CashVoucherController;
 use App\Http\Controllers\Api\UserTypeController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\CategoryController;
+//use App\Http\Controllers\Api\CategoryController;
 // use App\Http\Controllers\Api\PostController;
 // use App\Http\Controllers\Api\MagazineController;
 use App\Http\Controllers\Api\SupplierPaymentController;
