@@ -1,6 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
+Route::get('/', function () {
+    return response()->json([
+        'status' => 'ok',
+        'service' => 'CloudERP API',
+        'version' => 'v1',
+    ]);
+});
 
 Route::get('/health', function () {
     return response()->json([
@@ -9,6 +18,11 @@ Route::get('/health', function () {
         'version' => 'v1',
     ]);
 });
+
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+    return $request->user();
+});
+
 
 // Add these to routes/api.php.
 use App\Http\Controllers\Api\AuthModule\AuthController;

@@ -17,29 +17,46 @@ use Illuminate\Support\Facades\Hash;
  */
 class AuthController extends Controller
 {
+    // public function login(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required|string',
+    //     ]);
+
+    //     $user = User::where('email', $validated['email'])->first();
+
+    //     if (!$user || !Hash::check($validated['password'], $user->password)) {
+    //         return response()->json(['message' => 'Invalid email or password.'], 401);
+    //     }
+    //     $user->load('userType');
+    //     return response()->json(['user' => $user]);
+    // }
     public function login(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+{
+    $validated = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ]);
 
-        $user = User::where('email', $validated['email'])->first();
+    $user = User::where('email', $validated['email'])->first();
 
-        if (!$user || !Hash::check($validated['password'], $user->password)) {
-            return response()->json(['message' => 'Invalid email or password.'], 401);
-        }
-
-        $user->load('userType');
-
-        // If Sanctum is installed (composer require laravel/sanctum,
-        // php artisan install:api), uncomment this to issue a real
-        // token instead of returning the user with nothing to prove it:
-        //   $token = $user->createToken('api')->plainTextToken;
-        //   return response()->json(['user' => $user, 'token' => $token]);
-
-        return response()->json(['user' => $user]);
+    if (!$user || !Hash::check($validated['password'], $user->password)) {
+        return response()->json([
+            'message' => 'Invalid email or password.'
+        ], 401);
     }
+
+    $user->load('userType');
+
+    // Create Sanctum token
+    $token = $user->createToken('erp-token')->plainTextToken;
+
+    return response()->json([
+        'user' => $user,
+        'token' => $token,
+    ]);
+}
 
     /**
      * STUB — validates the email format and always returns success
