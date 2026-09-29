@@ -23,7 +23,8 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     return $request->user();
 });
 
-
+use App\Http\Controllers\Api\ExportController;
+use App\Http\Controllers\Api\ImportController;
 // Add these to routes/api.php.
 use App\Http\Controllers\Api\AuthModule\AuthController;
 use App\Http\Controllers\Api\CustomerController;
@@ -115,3 +116,21 @@ Route::get('reports/balance-sheet', [ReportController::class, 'balanceSheet']);
 // Route::post('/shipments', [ShipmentController::class, 'store']);
 // Route::get('/shipments/{shipment}', [ShipmentController::class, 'show']);
 
+
+Route::get('/export/customers', [ExportController::class, 'customers']);
+Route::get('/export/suppliers', [ExportController::class, 'suppliers']);
+Route::get('/export/products', [ExportController::class, 'products']);
+Route::get('/export/users', [ExportController::class, 'users']);
+Route::get('/export/purchases', [ExportController::class, 'purchases']);
+Route::get('/export/invoices', [ExportController::class, 'invoices']);
+Route::get('/export/expenses', [ExportController::class, 'expenses']);
+Route::get('/export/payments', [ExportController::class, 'payments']);
+Route::get('/export/supplier-payments', [ExportController::class, 'supplierPayments']);
+//import 
+Route::post('/import/customers', [ImportController::class, 'customers']);
+Route::post('/import/suppliers', [ImportController::class, 'suppliers']);
+Route::post('/import/users', [ImportController::class, 'users']);
+Route::post('/import/user-types', [ImportController::class, 'userTypes']);
+Route::post('/import/expenses', [ImportController::class, 'expenses']);
+Route::post('/import/purchases', [ImportController::class, 'purchases']);
+Route::post('/import/invoices', [ImportController::class, 'invoices']);

@@ -14,8 +14,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'user_type_id',
+        'is_active',
     ];
 
     protected $hidden = [
@@ -32,3 +34,4 @@ class User extends Authenticatable
         return $this->belongsTo(UserType::class);
     }
 }
+

@@ -1,5 +1,19 @@
 # Stage 1: Composer dependencies
-FROM composer:2 AS vendor
+# FROM composer:2 AS vendor
+FROM php:8.2-cli AS vendor
+
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install zip gd \
+    && rm -rf /var/lib/apt/lists/*
+    
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
@@ -23,7 +37,11 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
-    && docker-php-ext-install zip pdo pdo_mysql mbstring \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install zip pdo pdo_mysql mbstring gd \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/public#g' \
